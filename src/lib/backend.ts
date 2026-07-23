@@ -11,6 +11,7 @@ import type {
   NewSshContext,
   PruneTarget,
   Volume,
+  WidgetSnapshot,
 } from "../types/docker";
 
 /**
@@ -104,4 +105,11 @@ export function prune(context: string, target: PruneTarget): Promise<string> {
   return isTauri
     ? invoke("prune", { context, target })
     : mock.prune(context, target);
+}
+
+/** Publish a status snapshot for the macOS widget. No-op in the browser. */
+export function publishWidgetSnapshot(snapshot: WidgetSnapshot): Promise<void> {
+  return isTauri
+    ? invoke("publish_widget_snapshot", { snapshot })
+    : Promise.resolve();
 }

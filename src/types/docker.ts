@@ -100,3 +100,11 @@ export type PruneTarget =
   | "system";
 
 export type ResourceTab = "containers" | "images" | "volumes" | "networks";
+
+/** Compact status the app publishes for the macOS widget (see src-tauri/src/widget.rs). */
+export interface WidgetSnapshot {
+  activeContext: string;
+  activeKind: ContextKind | "";
+  engineState: EngineState;
+  contextCount: number;
+}

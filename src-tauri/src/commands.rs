@@ -8,6 +8,7 @@ use crate::docker::{
     self, Container, DiskCategory, DockerContext, EngineStatus, Image, Network, NewSshContext,
     Volume,
 };
+use crate::widget::{self, WidgetSnapshot};
 
 #[tauri::command]
 pub fn list_contexts() -> Result<Vec<DockerContext>, String> {
@@ -77,4 +78,10 @@ pub fn remove_network(context: String, id: String) -> Result<(), String> {
 #[tauri::command]
 pub fn prune(context: String, target: String) -> Result<String, String> {
     docker::prune(&context, &target)
+}
+
+/// Publish a compact status snapshot for the macOS widget (see `crate::widget`).
+#[tauri::command]
+pub fn publish_widget_snapshot(snapshot: WidgetSnapshot) -> Result<(), String> {
+    widget::write_snapshot(snapshot)
 }

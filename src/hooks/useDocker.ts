@@ -3,6 +3,7 @@ import {
   createSshContext,
   getEngineStatus,
   listContexts,
+  publishWidgetSnapshot,
   switchContext,
 } from "../lib/backend";
 import type {
@@ -30,6 +31,15 @@ export function useDocker() {
       setContexts(nextContexts);
       setEngine(nextEngine);
       setError(null);
+
+      // Feed the macOS widget (fire-and-forget; harmless no-op in the browser).
+      const active = nextContexts.find((c) => c.active);
+      void publishWidgetSnapshot({
+        activeContext: active?.name ?? "",
+        activeKind: active?.kind ?? "",
+        engineState: nextEngine.state,
+        contextCount: nextContexts.length,
+      }).catch(() => {});
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {

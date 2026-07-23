@@ -2,6 +2,7 @@ mod commands;
 mod docker;
 mod platform;
 mod tray;
+mod widget;
 
 use tauri::{Manager, WindowEvent};
 
@@ -36,6 +37,7 @@ pub fn run() {
             commands::remove_volume,
             commands::remove_network,
             commands::prune,
+            commands::publish_widget_snapshot,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

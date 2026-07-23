@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- macOS widget (WidgetKit): app-side bridge that publishes a status snapshot to
+  a shared App Group (`src-tauri/src/widget.rs`), plus a scaffolded SwiftUI
+  widget extension under `macos/`. Building the widget requires an Apple
+  Developer account — see `docs/WIDGET.md`.
+
 ## [0.1.0] - 2026-07-23
 
 ### Added

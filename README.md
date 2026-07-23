@@ -33,6 +33,10 @@ Built with Tauri, React, TypeScript, Tailwind CSS, and Framer Motion.
   Closing the window minimizes the app to the menu bar (and drops the dock
   icon) instead of quitting; left-click the icon to toggle the window,
   right-click for Show / Hide / Quit.
+- **macOS widget (WidgetKit)** — a Notification Center / desktop widget showing
+  the active context and engine status. The app feeds it via a shared App
+  Group; the native extension is scaffolded under `macos/` and building it
+  requires an Apple Developer account — see [docs/WIDGET.md](./docs/WIDGET.md).
 - **Liquid Glass UI** — real macOS window vibrancy (Tauri `windowEffects`)
   under frosted glass panels, drifting aurora gradients, and spring-physics
   transitions.
@@ -82,7 +86,11 @@ src-tauri/                Rust backend (Tauri v2)
 ├── src/docker.rs         Typed Docker operations (parse CLI JSON, mutations)
 ├── src/platform.rs       OS seams + the run_docker primitive (timeout, PATH)
 ├── src/tray.rs           Menu-bar item + minimize-to-tray
+├── src/widget.rs         Writes the widget snapshot to the shared App Group
 └── tauri.conf.json       Transparent window + native vibrancy config
+
+macos/                    Native macOS WidgetKit extension (Swift/SwiftUI)
+└── DockerContextWidget/  Reads the App Group snapshot; see docs/WIDGET.md
 ```
 
 ### Design decisions
@@ -111,6 +119,8 @@ src-tauri/                Rust backend (Tauri v2)
 - [x] Resource console (containers/images/volumes/networks), disk usage +
       prune, confirm gating
 - [x] Menu-bar item with minimize-to-tray + window toggle
+- [x] macOS widget: app-side bridge + WidgetKit extension scaffold
+      ([docs/WIDGET.md](./docs/WIDGET.md))
 - [ ] Quick context switching from the tray menu
 - [ ] Per-context health polling
 - [ ] Windows / Linux builds
