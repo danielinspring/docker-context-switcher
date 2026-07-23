@@ -12,7 +12,7 @@ export function RowShell({ children }: { children: ReactNode }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.97 }}
       transition={spring}
-      className="glass flex items-center gap-3 rounded-xl px-3.5 py-2.5"
+      className="glass-row flex items-center gap-3 rounded-xl px-3.5 py-2.5"
     >
       {children}
     </motion.li>
