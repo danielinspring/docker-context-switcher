@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+ * Liquid Glass design tokens
+ * ------------------------------------------------------------------------- */
+@theme {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+    "Segoe UI", sans-serif;
+  --font-mono:
+    "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* Engine status colours */
+  --color-status-running: #34d399;
+  --color-status-stopped: #fbbf24;
+  --color-status-missing: #f87171;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: rgba(255, 255, 255, 0.92);
+  /* Transparent so the macOS vibrancy layer (tauri windowEffects) shows through. */
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  user-select: none;
+  cursor: default;
+}
+
+/*
+ * Browser preview fallback: when running plain `npm run dev` (no Tauri shell)
+ * there is no desktop behind the window, so paint a stand-in "wallpaper"
+ * for the glass layers to refract.
+ */
+html.browser-preview body {
+  background:
+    radial-gradient(1100px 700px at 18% 8%, rgba(37, 99, 235, 0.35), transparent 60%),
+    radial-gradient(900px 700px at 85% 90%, rgba(124, 58, 237, 0.30), transparent 62%),
+    radial-gradient(700px 500px at 60% 40%, rgba(13, 148, 136, 0.16), transparent 60%),
+    #04060d;
+}
+
+/* ---------------------------------------------------------------------------
+ * Glass surfaces
+ * ------------------------------------------------------------------------- */
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.09),
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.02)
+  );
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 12px 40px rgba(2, 6, 18, 0.45);
+}
+
+/* Heavier pane for modals / sheets that float above other glass. */
+.glass-strong {
+  background: linear-gradient(
+    135deg,
+    rgba(23, 30, 48, 0.82),
+    rgba(12, 16, 30, 0.86)
+  );
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.glass-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.92);
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+  user-select: text;
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.glass-input:focus {
+  border-color: rgba(103, 232, 249, 0.45);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.14);
+}
+
+/* ---------------------------------------------------------------------------
+ * Chrome details
+ * ------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.20);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -1,0 +1,16 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Tauri
+src-tauri/target
+src-tauri/gen/schemas
+
+# OS / editor noise
+.DS_Store
+*.local
+.idea
+.vscode/*
+!.vscode/extensions.json
