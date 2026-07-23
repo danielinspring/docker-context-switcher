@@ -4,7 +4,10 @@
 //! can talk to a daemon takes a `context` argument so the resource views act on
 //! the context the user is inspecting, never on ambient global state.
 
-use crate::docker::{self, Container, DiskCategory, DockerContext, EngineStatus, Image, Network, NewSshContext, Volume};
+use crate::docker::{
+    self, Container, DiskCategory, DockerContext, EngineStatus, Image, Network, NewSshContext,
+    Volume,
+};
 
 #[tauri::command]
 pub fn list_contexts() -> Result<Vec<DockerContext>, String> {

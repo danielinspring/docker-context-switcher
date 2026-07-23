@@ -160,7 +160,11 @@ fn parse_ndjson(stdout: &str) -> Vec<Value> {
 }
 
 fn str_field(value: &Value, key: &str) -> String {
-    value.get(key).and_then(Value::as_str).unwrap_or("").to_string()
+    value
+        .get(key)
+        .and_then(Value::as_str)
+        .unwrap_or("")
+        .to_string()
 }
 
 /// Parse a numeric field that Docker emits as a string (e.g. `"3"`, `"N/A"`).
@@ -177,7 +181,11 @@ fn num_field(value: &Value, key: &str) -> i64 {
 // ---------------------------------------------------------------------------
 
 pub fn list_contexts() -> Result<Vec<DockerContext>, String> {
-    let stdout = run_docker_ok(None, &["context", "ls", "--format", "{{json .}}"], LIST_TIMEOUT)?;
+    let stdout = run_docker_ok(
+        None,
+        &["context", "ls", "--format", "{{json .}}"],
+        LIST_TIMEOUT,
+    )?;
     let mut contexts: Vec<DockerContext> = parse_ndjson(&stdout)
         .iter()
         .map(|v| {
@@ -219,14 +227,22 @@ pub fn local_engine_status() -> Result<EngineStatus, String> {
     let local = contexts
         .iter()
         .find(|c| matches!(c.kind, ContextKind::Local) && c.active)
-        .or_else(|| contexts.iter().find(|c| matches!(c.kind, ContextKind::Local)));
+        .or_else(|| {
+            contexts
+                .iter()
+                .find(|c| matches!(c.kind, ContextKind::Local))
+        });
 
     let (ctx, endpoint) = match local {
         Some(c) => (Some(c.name.as_str()), c.endpoint.clone()),
         None => (None, default_local_socket().to_string()),
     };
 
-    match run_docker_ok(ctx, &["version", "--format", "{{.Server.Version}}"], PING_TIMEOUT) {
+    match run_docker_ok(
+        ctx,
+        &["version", "--format", "{{.Server.Version}}"],
+        PING_TIMEOUT,
+    ) {
         Ok(version) if !version.is_empty() => Ok(EngineStatus {
             state: EngineState::Running,
             version: Some(version),
@@ -360,7 +376,11 @@ pub fn list_volumes(context: &str) -> Result<Vec<Volume>, String> {
     )?;
     let root: Value = serde_json::from_str(stdout.trim())
         .map_err(|e| format!("could not parse docker system df output: {e}"))?;
-    let volumes = root.get("Volumes").and_then(Value::as_array).cloned().unwrap_or_default();
+    let volumes = root
+        .get("Volumes")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
     Ok(volumes
         .iter()
         .map(|v| {
