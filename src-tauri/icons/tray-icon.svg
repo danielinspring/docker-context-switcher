@@ -1,8 +1,18 @@
-<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- macOS template icon: pure black shapes on transparent; the system
-       recolours it for the light/dark menu bar via the alpha channel. -->
-  <!-- Back context card (outline) -->
-  <rect x="7" y="9" width="21" height="15" rx="4.5" stroke="#000000" stroke-width="2.6"/>
-  <!-- Front context card (filled = active) -->
-  <rect x="16" y="20" width="21" height="15" rx="4.5" fill="#000000"/>
+<svg width="123" height="66" viewBox="3 13 123 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- macOS template icon: pure black on transparent; the system recolours it
+       for the light/dark menu bar via the alpha channel. A whale, for Docker.
+       viewBox hugs the silhouette so it fills the menu-bar height. -->
+  <g fill="#000000">
+    <!-- body + head + upturned forked tail (facing left) -->
+    <path d="M22,72 C11,70 9,58 17,50 C25,40 40,36 56,36 C77,36 93,40 104,49
+             C106,41 106,29 114,24 C113,34 111,40 108,46
+             C113,51 117,57 120,63 C110,63 102,61 96,59
+             C79,66 58,72 40,73 C32,73 26,73 22,72 Z"/>
+  </g>
+  <!-- blowhole spout -->
+  <g stroke="#000000" stroke-width="4.6" stroke-linecap="round">
+    <line x1="44" y1="33" x2="44" y2="19"/>
+    <line x1="36" y1="34" x2="32" y2="23"/>
+    <line x1="52" y1="34" x2="56" y2="23"/>
+  </g>
 </svg>
