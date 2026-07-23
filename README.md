@@ -26,6 +26,10 @@ Framer Motion.
     what is reclaimable, with a one-click **prune** for each — plus targeted
     `docker …prune` and per-item removal, all gated by a confirmation that
     shows the exact command before it runs.
+- **Menu-bar utility** — a template tray icon lives in the macOS menu bar.
+  Closing the window minimizes the app to the menu bar (and drops the dock
+  icon) instead of quitting; left-click the icon to toggle the window,
+  right-click for Show / Hide / Quit.
 - **Liquid Glass UI** — real macOS window vibrancy (Tauri `windowEffects`)
   under frosted glass panels, drifting aurora gradients, and spring-physics
   transitions.
@@ -90,8 +94,9 @@ src-tauri/                Rust backend (Tauri v2)
 - [x] Phase 2 — Rust backend: context ls/use/create, engine ping
 - [x] Phase 3 — resource console (containers/images/volumes/networks), disk
       usage + prune, confirm gating
-- [ ] Phase 4 — menu-bar quick switcher, per-context health polling,
-      Windows/Linux builds
+- [x] Phase 4 — menu-bar item with minimize-to-tray + window toggle
+- [ ] Phase 5 — quick context switching from the tray menu, per-context
+      health polling, Windows/Linux builds
 
 ## License
 

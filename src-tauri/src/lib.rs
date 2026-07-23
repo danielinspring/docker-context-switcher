@@ -1,10 +1,26 @@
 mod commands;
 mod docker;
 mod platform;
+mod tray;
+
+use tauri::{Manager, WindowEvent};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .setup(|app| {
+            tray::build(app.handle())?;
+            Ok(())
+        })
+        // Closing the window minimizes the app to the menu bar instead of quitting.
+        .on_window_event(|window, event| {
+            if let WindowEvent::CloseRequested { api, .. } = event {
+                if window.label() == "main" {
+                    api.prevent_close();
+                    tray::hide_window(window.app_handle());
+                }
+            }
+        })
         .invoke_handler(tauri::generate_handler![
             commands::list_contexts,
             commands::local_engine_status,
